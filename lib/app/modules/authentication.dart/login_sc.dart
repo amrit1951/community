@@ -46,11 +46,24 @@ class _LogInScreenState extends State<LogInScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      "Login",
-                      style: XB24.copyWith(
-                          color: AppColors.textPrimary, fontSize: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.toNamed(AppRoutes.COMMUNITY);
+                          },
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                        space(width: 60),
+                        Text(
+                          "Login",
+                          style: XB24.copyWith(
+                              color: AppColors.textPrimary, fontSize: 30),
+                        ),
+                      ],
                     ),
+
                     space(height: 10),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
