@@ -49,7 +49,9 @@ class _MembersPageState extends State<MembersPage> {
       bottomNavigationBar: AppBottombar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(AppRoutes.POST);
+        },
         child: Icon(
           Icons.add,
           color: AppColors.background,

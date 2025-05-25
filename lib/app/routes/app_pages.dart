@@ -4,6 +4,7 @@ import 'package:community_app/app/modules/community/view/community_view.dart';
 import 'package:community_app/app/modules/community/view/splash_screen.dart';
 import 'package:community_app/app/modules/members/member_details.dart';
 import 'package:community_app/app/modules/members/member_page.dart';
+import 'package:community_app/app/modules/posts/post.dart';
 import 'package:get/get.dart';
 import '../modules/profile/view/profile_view.dart';
 import 'app_routes.dart';
@@ -53,6 +54,12 @@ class AppPages {
       name: AppRoutes.PROFILE,
       page: () =>
           const ProfileView(), // replace with your actual SplashView if you have one
+      // binding: CommunityBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.POST,
+      page: () =>
+          const Post(), // replace with your actual SplashView if you have one
       // binding: CommunityBinding(),
     ),
   ];

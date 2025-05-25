@@ -25,7 +25,9 @@ class _CommunityViewState extends State<CommunityView> {
       bottomNavigationBar: const AppBottombar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(AppRoutes.POST);
+        },
         child: const Icon(
           Icons.add,
           color: AppColors.background,
@@ -236,7 +238,7 @@ class _CommunityViewState extends State<CommunityView> {
                   CustomButton(
                     label: "Join Now",
                     onPressed: () {
-                      Get.offNamed(AppRoutes.LOGIN);
+                      Get.toNamed(AppRoutes.LOGIN);
                     },
                   ),
                 ],

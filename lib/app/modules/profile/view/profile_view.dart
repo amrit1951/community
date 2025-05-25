@@ -2,12 +2,18 @@ import 'package:community_app/app/components/appbar.dart';
 import 'package:community_app/app/components/bottombar.dart';
 import 'package:community_app/app/components/drewar.dart';
 import 'package:community_app/app/controller/profile_controller.dart';
+import 'package:community_app/app/modules/profile/widgets/activity_item.dart';
+import 'package:community_app/app/modules/profile/widgets/premium_card.dart';
+import 'package:community_app/app/modules/profile/widgets/profile_stats.dart';
+import 'package:community_app/app/modules/profile/widgets/skill_chip.dart';
 import 'package:community_app/shared/themes/colors.dart';
 import 'package:community_app/shared/themes/text_styles.dart';
 import 'package:community_app/shared/utils/space.dart';
 import 'package:community_app/shared/widgets/btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../routes/app_routes.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -22,7 +28,9 @@ class ProfileView extends StatelessWidget {
       bottomNavigationBar: const AppBottombar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(AppRoutes.POST);
+        },
         child: const Icon(
           Icons.add,
           color: AppColors.background,
@@ -78,27 +86,18 @@ class ProfileView extends StatelessWidget {
               ),
             ),
 
-            // Quick Stats
+            // Premium Card
             Padding(
               padding: const EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Obx(() => _buildStatItem(
-                        controller.eventsCount.value.toString(),
-                        'Events',
-                      )),
-                  Obx(() => _buildStatItem(
-                        controller.postsCount.value.toString(),
-                        'Posts',
-                      )),
-                  Obx(() => _buildStatItem(
-                        controller.followingCount.value.toString(),
-                        'Following',
-                      )),
-                ],
-              ),
+              child: PremiumCard(),
             ),
+
+            // Quick Stats
+            Obx(() => ProfileStats(
+                  eventsCount: controller.eventsCount.value.toString(),
+                  postsCount: controller.postsCount.value.toString(),
+                  followingCount: controller.followingCount.value.toString(),
+                )),
 
             // Profile Sections
             Padding(
@@ -141,10 +140,10 @@ class ProfileView extends StatelessWidget {
                   space(height: 12),
                   Obx(() => Column(
                         children: controller.recentActivities
-                            .map((activity) => _buildActivityItem(
-                                  activity['title'],
-                                  activity['time'],
-                                  _getIconData(activity['icon']),
+                            .map((activity) => ActivityItem(
+                                  title: activity['title'],
+                                  time: activity['time'],
+                                  icon: _getIconData(activity['icon']),
                                 ))
                             .toList(),
                       )),
@@ -160,7 +159,7 @@ class ProfileView extends StatelessWidget {
                         spacing: 8,
                         runSpacing: 8,
                         children: controller.skills
-                            .map((skill) => _buildSkillChip(skill))
+                            .map((skill) => SkillChip(label: skill))
                             .toList(),
                       )),
                   space(height: 24),
@@ -195,90 +194,5 @@ class ProfileView extends StatelessWidget {
       default:
         return Icons.info;
     }
-  }
-
-  Widget _buildStatItem(String value, String label) {
-    return Column(
-      children: [
-        Text(
-          value,
-          style: B24.copyWith(color: AppColors.primary),
-        ),
-        space(height: 4),
-        Text(
-          label,
-          style: N14.copyWith(color: Colors.grey[600]),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildActivityItem(String title, String time, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              icon,
-              color: AppColors.primary,
-              size: 20,
-            ),
-          ),
-          space(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: B16,
-                ),
-                space(height: 4),
-                Text(
-                  time,
-                  style: N14.copyWith(color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSkillChip(String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Text(
-        label,
-        style: N14.copyWith(
-          color: AppColors.primary,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
   }
 }

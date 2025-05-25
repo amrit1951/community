@@ -51,7 +51,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Get.toNamed(AppRoutes.COMMUNITY);
+                            Navigator.of(context).pop();
                           },
                           icon: const Icon(Icons.arrow_back),
                         ),

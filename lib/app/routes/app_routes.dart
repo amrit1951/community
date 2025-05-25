@@ -7,4 +7,5 @@ abstract class AppRoutes {
   static const MEMBERS = '/members';
   static const MEMBERDETAILS = '/members-details';
   static const PROFILE = '/profile';
+  static const POST = '/post';
 }

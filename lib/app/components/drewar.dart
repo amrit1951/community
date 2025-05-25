@@ -90,6 +90,30 @@ class AppDrawer extends StatelessWidget {
           // selected: _mainScreenController.currentIndex.value == 1,
           selectedTileColor: Colors.grey.withOpacity(0.1),
         ),
+        Divider(height: 1, color: Colors.grey.withOpacity(0.3)),
+        ListTile(
+          leading: SizedBox(
+            height: 20,
+            width: 20,
+            child: Image.asset(
+              "assets/icon/services.png",
+              fit: BoxFit.fill,
+              color: AppColors.primary,
+            ),
+          ),
+          title: const Text(
+            'Login',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          onTap: () {
+            Get.toNamed('/login');
+          },
+          // selected: _mainScreenController.currentIndex.value == 1,
+          selectedTileColor: Colors.grey.withOpacity(0.1),
+        ),
 
         Divider(height: 1, color: Colors.grey.withOpacity(0.3)),
 
